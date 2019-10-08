@@ -58,7 +58,7 @@ $(document).ready(function(){
     function timeConverter(t) {
 
         //((  Takes the current time in seconds and convert it to minutes and seconds (mm:ss).
-        //console.log(t);
+        // slightly modified to handle time limit
         if(t === 0){
           timeEnded();
         }else{
@@ -88,42 +88,79 @@ $(document).ready(function(){
         populateGame(currentQuestion);
       });
 
+      // this function has most of the game's logic.
       function populateGame(index){
-          $("#questionDiv").text(questions[index]);
-          for(var i = 0; i < 4; i++){
-              $("#option"+(i+1)).text(answers[index][i]);
-              $("#option"+(i+1)).attr("val",i);
+          if(index <= 9){
+            $("#questionDiv").text(questions[index]);
+            for(var i = 0; i < 4; i++){
+                $("#option"+(i+1)).text(answers[index][i]);
+                $("#option"+(i+1)).attr("val",i);
+            }
+            start();
+          }else{
+            finishGame();
           }
-          start();
       }
 
+      // function that handles the user input
       $(".option").on("click", function(){
         var selectedAnswer = parseInt($(this).attr("val"));
-        checkAnswer(selectedAnswer);
-        currentQuestion += 1;
-        stop(); 
-        populateGame(currentQuestion);
+        console.log(selectedAnswer);
+        if(selectedAnswer === -1){
+          checkAnswer("time");
+          currentQuestion += 1;
+          stop(); 
+          populateGame(currentQuestion);
+        }else{
+          checkAnswer(selectedAnswer);
+          currentQuestion += 1;
+          stop(); 
+          populateGame(currentQuestion);
+        }
       });
 
+      // function that validates the selected answer
       function checkAnswer(answer){
-        if(answer === correctAnswers[currentQuestion]){
-          createModal(true);
-          score += 1;
+        console.log(answer);
+        if(answer === "time"){
+          createModal("time");
         }else{
-          createModal(false)
+          if(answer === correctAnswers[currentQuestion]){
+            score += 1;
+            createModal("correct");
+          }else{
+            createModal("incorrect")
+          }
         }
       }
 
+      // function to show the user the result of the response
       function createModal(option){
-        if(option){
-          $(".modal-title").text("Correct!");
-          $(".modal-body").text("That's right! your current score is:" + score);
-        }else{
-          $(".modal-title").text("Inorrect!");
-          $(".modal-body").text("Awww! Better luck next time");
+        switch(option){
+          case "correct":
+            $(".modal-title").text("Correct!");
+            $(".modal-body").text("That's right! your current score is:" + score);
+            break;
+          case "incorrect":
+            $(".modal-title").text("Inorrect!");
+            $(".modal-body").text("Awww! Better luck next time");
+            break;
+          case "time":
+            $(".modal-title").text("Time's Up!");
+            $(".modal-body").text("You better hurry next time");
+            break;
         }
       }
 
+      // function to finish the game logic and present results
+      function finishGame(){
+        $(".card-body").empty();
+        var finalResult = $("<div>");
+        finalResult.html("<h2>That's it! your final score is: " + score + "</h2>");
+        $(".card-body").append(finalResult);
+      }
+
+      // function to mock a user's click. Only used when the user runs out of time
       function timeEnded(){
         $("#btnTrigger").click();
       }
