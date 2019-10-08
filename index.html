@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-lg-2"></div>
                             <div class="col-lg-6">Time left:</div>
-                            <div class="col-lg-2" id="time">00:00</div>
+                            <div class="col-lg-2" id="time">00:10</div>
                         </div>
                         <hr>
                         <div class="game">
@@ -39,16 +39,17 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2"></div>
-                                <div class="col-lg-4"><a href="#" class="option btn btn-secondary rounded-pill" id="option1">Option 1</a></div>
-                                <div class="col-lg-4"><a href="#" class="option btn btn-secondary rounded-pill" id="option2">Option 2</a></div>
+                                <div class="col-lg-4"><a href="#" class="option btn btn-secondary rounded-pill" id="option1" data-toggle="modal" data-target="#responseModal">Option 1</a></div>
+                                <div class="col-lg-4"><a href="#" class="option btn btn-secondary rounded-pill" id="option2" data-toggle="modal" data-target="#responseModal">Option 2</a></div>
                                 <div class="col-lg-2"></div>
                             
                             </div>
                             <div class="row">
                                 <div class="col-lg-2"></div>
-                                <div class="col-lg-4"><a href="#" class="option btn btn-secondary rounded-pill" id="option3">Option 3</a></div>
-                                <div class="col-lg-4"><a href="#" class="option btn btn-secondary rounded-pill" id="option4">Option 4</a></div>
+                                <div class="col-lg-4"><a href="#" class="option btn btn-secondary rounded-pill" id="option3" data-toggle="modal" data-target="#responseModal">Option 3</a></div>
+                                <div class="col-lg-4"><a href="#" class="option btn btn-secondary rounded-pill" id="option4" data-toggle="modal" data-target="#responseModal">Option 4</a></div>
                                 <div class="col-lg-2"></div>
+                                <button class="option btn btn-primary btn-lg" id="btnTrigger" data-toggle="modal" data-target="#responseModal" val="-1"></button>
                             </div>    
                         </div>
                     </form>
@@ -56,6 +57,27 @@
             </div>
             <div class='col-lg-2'></div>
         </div>
+
+        <!-- MODAL START -->
+        <div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="responseModalLabel"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- MODAL END-->
     </section>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
